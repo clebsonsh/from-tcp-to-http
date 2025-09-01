@@ -39,6 +39,10 @@ func getLinesChannel(stream io.ReadCloser) <-chan string {
 				currentLine = parts[1]
 			}
 		}
+
+		if len(currentLine) != 0 {
+			output <- currentLine
+		}
 	}()
 
 	return output
@@ -58,6 +62,6 @@ func main() {
 	lines := getLinesChannel(conn)
 
 	for line := range lines {
-		fmt.Printf("read: %s\n", line)
+		fmt.Println(line)
 	}
 }
